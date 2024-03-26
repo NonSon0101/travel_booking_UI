@@ -20,6 +20,7 @@ import { IoMdLogIn } from "react-icons/io";
 import { FaUserCircle } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import ActionItem from "components/Layout/components/Header/Actions/ActionItem";
+import { PLATFORM } from "enums/common";
 // import { PLATFORM } from 'API/constants'
 // import IconWithText from 'components/IconWithText'
 
@@ -34,7 +35,7 @@ const UserProfile = (props: IUserProfileProps) => {
   const { openLoginModal, color, underLineHoverColor, hoverColor } = props;
   const { authStore } = useStores();
   const { user, isLogin } = authStore;
-  const { name, email, avatarUrl } = user;
+  const { username, email } = user;
   const router = useRouter();
 
   function gotoProfilePage(): void {
@@ -42,7 +43,7 @@ const UserProfile = (props: IUserProfileProps) => {
   }
 
   function handleLogout() {
-    authStore.logout();
+    authStore.logout(PLATFORM.WEBSITE);
   }
 
   return (
@@ -73,22 +74,22 @@ const UserProfile = (props: IUserProfileProps) => {
               ml="8px"
               mb="4px"
             >
-              <Avatar size="lg" name={name} src={avatarUrl} />
+              <Avatar size="md" name={username} src={""} />
               <Flex
                 flexDirection="column"
                 display={{ base: "none", md: "flex" }}
                 alignItems="flex-start"
               >
                 <Text
-                  fontSize="1.5rem"
+                  fontSize="md"
                   fontWeight="500"
                   lineHeight="5"
                   marginBottom={1}
                   color={color}
                 >
-                  {truncate(name)}
+                  {truncate(username)}
                 </Text>
-                <Text fontSize="1.3rem" lineHeight="4" color={color}>
+                <Text fontSize="md" lineHeight="4" color={color}>
                   {email}
                 </Text>
               </Flex>
@@ -108,7 +109,7 @@ const UserProfile = (props: IUserProfileProps) => {
       </VStack>
 
       <MenuList
-        fontSize="1.5rem"
+        fontSize="md"
         minWidth="210px"
         padding="16px 0px"
         borderRadius="16px"
@@ -117,7 +118,7 @@ const UserProfile = (props: IUserProfileProps) => {
           <>
             <MenuItem maxH="40px" color="gray.700" onClick={gotoProfilePage}>
               <HStack spacing={3}>
-                <FaUserCircle fontSize="2rem" />
+                <FaUserCircle fontSize="1.8rem" />
                 <Text fontWeight="600">My Profile</Text>
               </HStack>
             </MenuItem>
@@ -128,7 +129,7 @@ const UserProfile = (props: IUserProfileProps) => {
               onClick={handleLogout}
             >
               <HStack spacing={3}>
-                <BiLogOutCircle fontSize="2rem" />
+                <BiLogOutCircle fontSize="1.8rem" />
                 <Text fontWeight="600">Log Out</Text>
               </HStack>
             </MenuItem>
@@ -141,7 +142,7 @@ const UserProfile = (props: IUserProfileProps) => {
             onClick={openLoginModal}
           >
             <HStack spacing={3}>
-              <IoMdLogIn fontSize="2rem" />
+              <IoMdLogIn fontSize="1.8rem" />
               <Text>Log in or sign up</Text>
             </HStack>
           </MenuItem>

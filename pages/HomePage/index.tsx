@@ -18,7 +18,7 @@ const HomePage = () => {
       <Text
         margin="0px 253px"
         padding="0px 98px"
-        fontSize="2.75rem"
+        fontSize="3xl"
         fontWeight="600"
         alignSelf="flex-start"
         mt="32px"

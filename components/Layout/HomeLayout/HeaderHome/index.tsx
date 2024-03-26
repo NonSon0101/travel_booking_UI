@@ -29,7 +29,7 @@ const HeaderHome = (props: IHeaderProps) => {
       >
         <Text
           width="50%"
-          fontSize="5rem"
+          fontSize="6xl"
           fontWeight="900"
           alignSelf="flex-start"
           mb="28px"
@@ -38,7 +38,7 @@ const HeaderHome = (props: IHeaderProps) => {
         </Text>
         <Text
           width="40%"
-          fontSize="2rem"
+          fontSize="2xl"
           fontWeight="700"
           alignSelf="flex-start"
           mb="18px"
@@ -46,10 +46,10 @@ const HeaderHome = (props: IHeaderProps) => {
           Join us for the ultimate travel adventure and unforgettable
           experiences
         </Text>
-        <Link width="40%" fontSize="1.5rem" alignSelf="flex-start">
+        <Link width="40%" fontSize="md" alignSelf="flex-start">
           <HStack>
             <Text>Learn more</Text>
-            <GoChevronRight fontSize="2rem" fontWeight="600" />
+            <GoChevronRight fontSize="1.8rem" fontWeight="600" />
           </HStack>
         </Link>
       </VStack>

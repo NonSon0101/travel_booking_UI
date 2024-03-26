@@ -13,7 +13,7 @@ const SearchItem = (props: ISearchItem) => {
       width="485px"
       padding="8px"
       alignSelf="flex-start"
-      fontSize="1.5rem"
+      fontSize="md"
       alignItems="center"
       borderRadius="8px"
       _hover={{

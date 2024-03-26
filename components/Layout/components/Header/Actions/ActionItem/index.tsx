@@ -18,7 +18,7 @@ const ActionItem = (props: IActionItemProps) => {
   return (
     <Link href={to} _hover={{ textDecoration: "none" }}>
       <VStack
-        fontSize="1.5rem"
+        fontSize="md"
         {...(color ? { color: `${color}` } : { color: "#fff" })}
         margin="0px 16px"
         lineHeight="8px"
@@ -38,7 +38,7 @@ const ActionItem = (props: IActionItemProps) => {
           color: hoverColor ? hoverColor : "#fff",
         }}
       >
-        <Text fontSize="1.8rem">{actionIcon}</Text>
+        <Text fontSize="2xl">{actionIcon}</Text>
         <Text>{title}</Text>
       </VStack>
     </Link>

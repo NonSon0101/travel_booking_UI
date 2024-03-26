@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import {
   Box,
   Button,
@@ -15,23 +15,30 @@ import {
   ModalContent,
   Stack,
   Text,
-} from '@chakra-ui/react'
-import PasswordField from 'components/PasswordField'
-import Icon from 'components/Icon'
-import { useStores } from 'hooks/useStores'
+} from "@chakra-ui/react";
+import PasswordField from "components/PasswordField";
+import Icon from "components/Icon";
+import { PLATFORM } from "enums/common";
+import { useStores } from "hooks/useStores";
+import { ILoginRequest } from "interfaces/auth";
 
 interface ILoginModalProps {
-  isOpen: boolean
-  onClose: () => void
+  isOpen: boolean;
+  onClose: () => void;
 }
 
 const LoginModal = (props: ILoginModalProps) => {
-  const { isOpen, onClose } = props
-  const { authStore } = useStores()
+  const { isOpen, onClose } = props;
+  const { authStore } = useStores();
+
+  const data: ILoginRequest = {
+    email: "vmdt01@gmail.com",
+    password: "12345678",
+  };
 
   function handleLogin() {
-    authStore.login()
-    onClose()
+    authStore.login(data, PLATFORM.WEBSITE);
+    onClose();
   }
 
   return (
@@ -41,13 +48,18 @@ const LoginModal = (props: ILoginModalProps) => {
         <Stack spacing={8} py={{ base: 0, sm: 8 }} px={{ base: 4, sm: 10 }}>
           <Stack spacing={6}>
             <Stack spacing={{ base: 2, md: 3 }} textAlign="center">
-              <Heading size={{ base: 'xs', md: 'lg' }}>Log in to your account</Heading>
+              <Heading size={{ base: "xs", md: "lg" }}>
+                Log in to your account
+              </Heading>
               <Text color="fg.muted">
                 {`Don't have an account?`} <Link href="#">Sign up</Link>
               </Text>
             </Stack>
           </Stack>
-          <Box bg={{ base: 'transparent', sm: 'bg.surface' }} borderRadius={{ base: 'none', sm: 'xl' }}>
+          <Box
+            bg={{ base: "transparent", sm: "bg.surface" }}
+            borderRadius={{ base: "none", sm: "xl" }}
+          >
             <Stack spacing={6}>
               <Stack spacing="5">
                 <FormControl>
@@ -57,9 +69,7 @@ const LoginModal = (props: ILoginModalProps) => {
                 <PasswordField />
               </Stack>
               <HStack justify="space-between">
-                <Checkbox defaultChecked>
-                  Remember me
-                </Checkbox>
+                <Checkbox defaultChecked>Remember me</Checkbox>
                 <Button variant="text" size="sm">
                   Forgot password?
                 </Button>
@@ -92,7 +102,7 @@ const LoginModal = (props: ILoginModalProps) => {
         </Stack>
       </ModalContent>
     </Modal>
-  )
-}
+  );
+};
 
-export default LoginModal
+export default LoginModal;
