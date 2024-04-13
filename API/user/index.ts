@@ -7,7 +7,9 @@ const USER_URL = "/api/v1/users";
 
 export async function getUserById(userId: string): Promise<IUser> {
   try {
-    const response = await api.get(`${USER_URL}/${userId}`);
+    const response = await api.get(`${USER_URL}/${userId}`, {
+      headers: auth(PLATFORM.WEBSITE),
+    });
     return response.data.metadata.user;
   } catch (error) {
     handleError(error as Error, "API/user", "getUserById");

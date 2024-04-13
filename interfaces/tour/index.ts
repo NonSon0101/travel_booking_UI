@@ -13,12 +13,7 @@ export interface ITour {
     icon: string;
     __v: number;
   };
-  startLocation: {
-    type: string;
-    coordinates: [number, number];
-    description: string;
-    address: string;
-  };
+  startLocation: IStartLocation;
   details: [
     {
       title: string;
@@ -48,21 +43,22 @@ export interface ITour {
   isActive: true;
   locations: [];
   transports: [];
-  priceOptions: [
-    {
-      title: string;
-      value: number;
-      currency: string;
-      _id: string;
-    },
-    {
-      title: string;
-      value: number;
-      currency: string;
-      _id: string;
-    }
-  ];
+  priceOptions: IPriceOptions[];
   __v: number;
+}
+
+export interface IStartLocation {
+  type: string;
+  coordinates: [number, number];
+  description: string;
+  address: string;
+}
+
+export interface IPriceOptions {
+  title: string;
+  value: number;
+  currency: string;
+  _id: string;
 }
 
 export interface ISuggesttion {

@@ -1,5 +1,3 @@
-import cmsRoutes from "./cms";
-
 const routes = {
   home: {
     value: "/",
@@ -22,7 +20,6 @@ const routes = {
   wishList: {
     value: "/wish-list",
   },
-  ...cmsRoutes,
 };
 
 export default routes;

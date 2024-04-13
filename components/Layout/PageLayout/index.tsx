@@ -14,7 +14,7 @@ const PageLayout = (props: IPageLayoutProps) => {
   const [isOpenLoginModal, setIsOpenLoginModal] = useState<boolean>(false);
 
   return (
-    <VStack width="full" position="relative">
+    <VStack width="full"  position="relative">
       <Header
         openLoginModal={() => setIsOpenLoginModal(true)}
         background="#transparent"

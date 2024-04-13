@@ -1,5 +1,7 @@
+import CartPage from "pages/CartPage";
+
 const CartPageLayout = () => {
-  return <div>pagecart</div>;
+  return <CartPage />;
 };
 
 export default CartPageLayout;

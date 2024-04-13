@@ -11,18 +11,18 @@ import {
 
 const Footer = () => {
   return (
-    <footer style={{ width: "100%" }}>
+    <footer style={{ width: "100%", bottom: "0", position: "relative" }}>
       <Box
         fontSize="1.4rem"
         fontWeight="bold"
         width="full"
-        height="362px"
+        height="200px"
         bg="#1a2b49"
         color="#fff"
       >
         <HStack margin="0px 51px" padding="0px 96px">
           <HStack>
-            <Text>Languages</Text>
+            <Text></Text>
             <Menu>
               <MenuButton>
                 <HStack></HStack>

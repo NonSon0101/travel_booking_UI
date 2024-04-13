@@ -25,13 +25,13 @@ const Header = (props: IHeader) => {
       width="full"
       height="80px"
       paddingX={8}
+      paddingTop="10px"
       {...(bgGradient
         ? { bgGradient: `${bgGradient}` }
         : { background: `${background}` })}
     >
       <HStack
         margin="0px 253px"
-        padding="0px 96px"
         justifyContent="space-between"
         height="100%"
         width="73.4%"

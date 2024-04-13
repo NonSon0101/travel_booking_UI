@@ -32,7 +32,7 @@ const LoginModal = (props: ILoginModalProps) => {
   const { authStore } = useStores();
 
   const data: ILoginRequest = {
-    email: "vmdt01@gmail.com",
+    email: "vmdt01",
     password: "12345678",
   };
 

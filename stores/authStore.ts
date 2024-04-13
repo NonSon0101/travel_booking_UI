@@ -1,22 +1,37 @@
-import { IUser } from "interfaces/user";
 import { makeAutoObservable } from "mobx";
-import { login } from "API/auth";
+import { use } from "react";
+import { omit } from "lodash";
+import { useState } from "react";
+
+import RootStore from "stores";
+import { IUser } from "interfaces/user";
 import { ILoginRequest } from "interfaces/auth";
+import { login } from "API/auth";
 import { getUserById } from "API/user";
 import { PLATFORM } from "enums/common";
-import { omit } from "lodash";
-import RootStore from "stores";
-import { use } from "react";
 import { getAccessToken } from "utils/common";
 export default class AuthStore {
   rootStore: RootStore;
   token: string = "";
   user = {} as IUser;
   isLogin: boolean = !!getAccessToken(PLATFORM.WEBSITE);
+  userInfo = {} as IUser;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false, token: false });
     this.rootStore = rootStore;
+  }
+
+  async FetchUserInfo(): Promise<void> {
+    const userId =
+      localStorage.getItem(`${PLATFORM.WEBSITE}UserId`) ??
+      sessionStorage.getItem(`${PLATFORM.WEBSITE}UserId`);
+    if (userId) {
+      const user = await getUserById(userId);
+      this.isLogin = true;
+      this.user = user;
+      this.userInfo = user; // Update observable state
+    }
   }
 
   async getUserbyId(platform: PLATFORM): Promise<void> {

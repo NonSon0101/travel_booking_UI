@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import {
   Flex,
@@ -10,6 +11,7 @@ import {
   MenuList,
   VStack,
 } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { useStores } from "hooks/useStores";
 import truncate from "lodash/truncate";
 import { observer } from "mobx-react";
@@ -21,8 +23,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { BiLogOutCircle } from "react-icons/bi";
 import ActionItem from "components/Layout/components/Header/Actions/ActionItem";
 import { PLATFORM } from "enums/common";
-// import { PLATFORM } from 'API/constants'
-// import IconWithText from 'components/IconWithText'
+
 
 interface IUserProfileProps {
   openLoginModal: () => void;
@@ -34,9 +35,13 @@ interface IUserProfileProps {
 const UserProfile = (props: IUserProfileProps) => {
   const { openLoginModal, color, underLineHoverColor, hoverColor } = props;
   const { authStore } = useStores();
-  const { user, isLogin } = authStore;
-  const { username, email } = user;
+  const { userInfo, isLogin } = authStore;
+  const { username, email } = userInfo;
   const router = useRouter();
+
+  useEffect(() => {
+    authStore.FetchUserInfo();
+  }, []);
 
   function gotoProfilePage(): void {
     router.push(routes.myProfile.value);
