@@ -1,7 +1,9 @@
-import TourDetailPage from "pages/TourDetailPage";
+import TourDetailPage from 'pages/TourDetailPage'
 
 const TourDetail = () => {
-  return <TourDetailPage />;
-};
+  return (
+    <TourDetailPage />
+  )
+}
 
-export default TourDetail;
+export default TourDetail

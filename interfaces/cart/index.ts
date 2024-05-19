@@ -28,23 +28,25 @@ export interface IUpdateToCart {
 }
 
 export interface IDeleteCart {
-  user: string;
+  cart: string;
   itemId: string;
 }
 
 export interface ITourCart {
-  isPrivate: boolean;
-  transports: [];
-  hotels: [];
   tour: {
     _id: string;
     code: string;
     title: string;
     thumbnail: string;
+    numOfRating: number,
+    ratingAverage: number
   };
+  isPrivate: boolean;
   startDate: string;
   startTime: string;
   participants: IParticipants[];
+  transports: [];
+  hotels: [];
   _id: string;
 }
 
@@ -58,4 +60,8 @@ export interface IParticipants {
 
 export interface ICart {
   cart: IListCart;
+}
+
+export interface IUpdatedCart {
+  updatedCart: IListCart;
 }

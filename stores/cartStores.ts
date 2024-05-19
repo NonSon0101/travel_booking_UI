@@ -9,19 +9,31 @@ import {
   IListCart,
   IUpdateToCart,
 } from "interfaces/cart";
+import { ISelectedCart } from "interfaces/checkout";
 
 class CartStrores {
   rootStore: RootStore;
   listCart = {} as IListCart;
   cartCount: number = 0;
+  selectedCart: ISelectedCart[];
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
+    this.selectedCart = [];
+  }
+  setSelectedCart(data: ISelectedCart): void {
+    this.selectedCart.push(data);
   }
 
+  unSetSelectedCart(tour: string): void {
+    this.selectedCart = this.selectedCart.filter((item) => item.tour !== tour);
+  }
+
+ 
   async fetchCartCount(): Promise<void> {
     const { cart } = await getListCart();
     this.cartCount = cart.tours.length;
+    this.listCart = cart;
   }
 
   async addToCart(data: IAddToCart): Promise<void> {
@@ -35,8 +47,8 @@ class CartStrores {
   }
 
   async updateCart(data: IUpdateToCart): Promise<void> {
-    const { cart } = await updateCart(data);
-    this.listCart = cart;
+    const { updatedCart } = await updateCart(data);
+    this.listCart = updatedCart;
   }
 
   async deleteCart(data: IDeleteCart): Promise<void> {

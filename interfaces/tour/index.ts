@@ -1,88 +1,77 @@
+import { IPriceOption } from 'interfaces/common'
+
 export interface ITour {
-  _id: string;
-  code: string;
-  title: string;
-  highlights: [];
-  thumbnail: string;
-  images: [string];
-  category: {
-    _id: string;
-    name: string;
-    isActive: true;
-    image: string;
-    icon: string;
-    __v: number;
-  };
-  startLocation: IStartLocation;
-  details: [
-    {
-      title: string;
-      description: string;
-      _id: string;
-    }
-  ];
-  inclusions: [string, string, string];
-  exclusions: [string, string];
-  itinerary: [
-    {
-      activity: string;
-      address: string;
-      duration: number;
-      location: {
-        coordinates: [number, number];
-        type: string;
-      };
-      _id: string;
-    }
-  ];
-  regularPrice: number;
-  currency: string;
-  discountPercentage: number;
-  duration: number;
-  numOfRating: number;
-  isActive: true;
-  locations: [];
-  transports: [];
-  priceOptions: IPriceOptions[];
-  __v: number;
-}
-
-export interface IStartLocation {
-  type: string;
-  coordinates: [number, number];
-  description: string;
-  address: string;
-}
-
-export interface IPriceOptions {
-  title: string;
-  value: number;
-  currency: string;
-  _id: string;
-}
-
-export interface ISuggesttion {
-  _id: string;
-  title: string;
-  type: string;
-  thumbnail: string;
-  loc: {
-    type: string;
-    coordinates: [number, number];
-  };
-  __v: number;
-}
-
-export interface ISreach {
-  suggestions: ISuggesttion[];
-  result: number;
+  _id: string
+  code: string
+  title: string
+  highlights: string[]
+  type: string
+  summary: string
+  description: string
+  thumbnail: string
+  images: string[]
+  category: string
+  interest: string
+  startLocation: IStartLocation
+  details: {
+    title: string
+    description: string
+  }[]
+  inclusions: string[]
+  exclusions: string[]
+  itinerary: ITourItinerary
+  duration: number
+  discountPrice: number
+  discountPercentage: number
+  ratingAverage: number
+  numOfRating: number
+  priceOptions: IPriceOption[]
+  regularPrice: number
+  currency: string
+  isActive: boolean
+  hotels: string[]
+  locations: string[]
+  transports: string[]
 }
 
 export interface ITourPagination {
-  tours: ITour[];
-  result: number;
+  total: number
+  docs: ITour[]
 }
 
-export interface ITourDetail {
-  tour: ITour;
+export interface IStartLocation {
+  type?: string
+  coordinates: number[]
+  description: string
+  address: string
+}
+
+export interface ITourItinerary {
+  activity: string
+  description: string
+  address: string
+  duration: number
+  icon: string
+  location: IStartLocation
+}
+
+export interface ISuggesttion {
+  _id: string
+  title: string
+  type: string
+  thumbnail: string
+  loc: {
+    type: string
+    coordinates: [number, number]
+  }
+}
+
+export interface ISearch {
+  suggestions: ISuggesttion[]
+  result: number
+}
+
+export interface IUploadTourImage {
+  thumbnailURL: string
+  imagesURL: string[]
 }
