@@ -1,6 +1,6 @@
-import { HStack, Img, Link, StackProps } from "@chakra-ui/react";
-import Action from "./Actions";
-import SearchBarInput from "./SearchBarInput";
+import { Box, HStack, Img, Link, StackProps } from "@chakra-ui/react";
+import Action from "../Actions";
+import SearchBarInput from "../SearchBarInput";
 import logo from "../../../../public/assets/images/logo.jpg";
 
 interface IHeader extends StackProps {
@@ -23,31 +23,38 @@ const Header = (props: IHeader) => {
     ...rest
   } = props;
   return (
-    <HStack
+    <Box
       width="full"
       height="80px"
       paddingX={8}
       paddingTop="10px"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
       {...(bgGradient
         ? { bgGradient: `${bgGradient}` }
         : { background: `${background}` })}
       {...rest}
     >
       <HStack
-        margin="0px 253px"
+        maxWidth='1300px'
         justifyContent="space-between"
+        alignItems="center"
+        alignSelf='center'
         height="100%"
-        width="73.4%"
+        width="full"
       >
         <HStack spacing={10}>
           <Link href="/">
             <Img
               src="/assets/images/logo.jpg"
-              boxSize="50px"
+              boxSize="90px"
               cursor="pointer"
             />
           </Link>
-          <SearchBarInput placeholder="Search tours by name" />
+          
+          <SearchBarInput hideBelow="md" minHeight="65px" placeholder="Search tours by name" />
         </HStack>
         <Action
           openLoginModal={openLoginModal}
@@ -56,7 +63,8 @@ const Header = (props: IHeader) => {
           underLineHoverColor={underLineHoverColor}
         />
       </HStack>
-    </HStack>
+      <SearchBarInput hideFrom="md" minHeight="44px" placeholder="Search tours by name" />
+    </Box>
   );
 };
 

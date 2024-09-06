@@ -21,7 +21,7 @@ import { FaRegUser } from "react-icons/fa"
 import { IoMdLogIn } from "react-icons/io"
 import { FaUserCircle } from "react-icons/fa"
 import { BiLogOutCircle } from "react-icons/bi"
-import ActionItem from "components/Layout/WebLayout/components/Header/Actions/ActionItem"
+import ActionItem from "components/Layout/WebLayout/components/Actions/ActionItem"
 import { PLATFORM } from "enums/common"
 
 interface IUserProfileProps {
@@ -82,7 +82,7 @@ const UserProfile = (props: IUserProfileProps) => {
               <Flex
                 color='#fff'
                 flexDirection="column"
-                display={{ base: "none", md: "flex" }}
+                display={{ base: "none", lg: "flex" }}
                 alignItems="flex-start"
               >
                 <Text
@@ -107,6 +107,7 @@ const UserProfile = (props: IUserProfileProps) => {
                 color={color}
                 actionIcon={<FaRegUser />}
                 title="Login"
+                to={() => {}}
               />
             </VStack>
           )}

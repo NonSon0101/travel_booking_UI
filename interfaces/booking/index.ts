@@ -85,12 +85,13 @@ export interface IBookingDetail {
 
 export interface IBookingInfoPagination {
   bookings: IBookingInfoBody[];
-  result: number;
+  total: number;
 }
 
 export interface IBookingPagination {
   bookings: IBooking[];
   result: number;
+  total: number;
 }
 
 export interface ITourBookingInfo {

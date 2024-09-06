@@ -1,42 +1,47 @@
 import { IPriceOption } from 'interfaces/common'
 
 export interface ITour {
-  _id: string
-  code: string
-  title: string
-  highlights: string[]
-  type: string
-  summary: string
-  description: string
-  thumbnail: string
-  images: string[]
-  category: string
-  interest: string
-  startLocation: IStartLocation
-  details: {
-    title: string
-    description: string
+  _id?: string
+  code?: string
+  title?: string
+  highlights?: string[]
+  type?: string
+  summary?: string
+  description?: string
+  thumbnail?: string
+  images?: string[]
+  category?: string
+  interest?: string
+  startLocation?: IStartLocation
+  details?: {
+    title?: string
+    description?: string
   }[]
-  inclusions: string[]
-  exclusions: string[]
-  itinerary: ITourItinerary
-  duration: number
-  discountPrice: number
-  discountPercentage: number
-  ratingAverage: number
-  numOfRating: number
-  priceOptions: IPriceOption[]
-  regularPrice: number
-  currency: string
-  isActive: boolean
-  hotels: string[]
-  locations: string[]
-  transports: string[]
+  inclusions?: string[]
+  exclusions?: string[]
+  itinerary?: ITourItinerary
+  duration?: number
+  discountPrice?: number
+  discountPercentage?: number
+  ratingAverage?: number
+  numOfRating?: number
+  priceOptions?: IPriceOption[]
+  regularPrice?: number
+  currency?: string
+  isActive?: boolean
+  hotels?: string[]
+  locations?: string[]
+  transports?: string[]
 }
 
 export interface ITourPagination {
   total: number
   docs: ITour[]
+}
+
+export interface IAllTourPagination {
+  total: number
+  tours: ITour[]
 }
 
 export interface IStartLocation {
@@ -56,13 +61,22 @@ export interface ITourItinerary {
 }
 
 export interface ISuggesttion {
-  _id: string
-  title: string
-  type: string
-  thumbnail: string
-  loc: {
-    type: string
-    coordinates: [number, number]
+  _id?: string
+  title?: string
+  type?: string
+  thumbnail?: string 
+  loc?: {
+    type?: string
+    coordinates?: [number, number]
+  }
+  startLocation?: {
+    type?: string,
+    coordinates?: [
+        number,
+        number
+    ],
+    description?: string
+    address?: string
   }
 }
 

@@ -11,23 +11,40 @@ import {
   VStack,
   Input,
 } from "@chakra-ui/react";
+import { extendTheme, StackProps } from '@chakra-ui/react'
+
+import { useRouter } from 'next/navigation'
+import routes from 'routes'
 import SearchItem from "./SearchItem";
 import { useDebounce } from "hooks";
 import { useStores } from "hooks";
 import { observer } from "mobx-react";
 import { ISearch, ITour } from "interfaces/tour";
 
-interface ISearchInputProps {
+interface ISearchInputProps extends StackProps {
   name?: string
   value?: string
   placeholder?: string
   defaultValue?: string
+  minHeight?: string
+  minWidth?: string
 }
+const breakpoints = {
+  base: '0px',
+  sm: '320px',
+  md: '768px',
+  lg: '960px',
+  xl: '1200px',
+  '2xl': '1536px',
+}
+const theme = extendTheme({ breakpoints })
 
 const SearchBarInput = (props: ISearchInputProps) => {
+
+  const { value, placeholder, name, defaultValue, minHeight = '56px', ...rest } = props
   const { tourStore } = useStores()
+  const route = useRouter()
   const { suggestions } = tourStore
-  const { value, placeholder, name, defaultValue } = props
   const [isShow, setIsShow] = useState<boolean>(true)
   const [searchResult, setSearchResult] = useState(false)
   const [inputValue, setInputValue] = useState<string>("")
@@ -47,6 +64,11 @@ const SearchBarInput = (props: ISearchInputProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debounceVal])
 
+  function handleGoToAllActivities() {
+    if(debounceVal !== "")
+      route.push(routes.allActivities.value + `?search=${debounceVal}`)
+    }
+
   return (
     <Tippy
       interactive
@@ -55,17 +77,19 @@ const SearchBarInput = (props: ISearchInputProps) => {
         <VStack
           alignItems="center"
           justifyContent="center"
-          width="515px"
+          width={{ base: '400px', xl: '515px'  }}
           minHeight="100px"
-          maxHeight="min(-156px + 100vh, 734px)"
+          height='full'
           borderRadius="8px"
           padding="8px 16px 16px 16px"
           background="#fff"
-          boxShadow="rgba(0, 0, 0, 0.12) 0px 2px 12px"
+          boxShadow="rgba(0, 0, 0, 0.12) 0px 2px 12px"  
         >
           {suggestions.map((tours) => (
             <SearchItem
               key={tours?._id}
+              _id={tours?._id}
+              type={tours?.type}
               imgsrc={tours?.thumbnail}
               title={tours?.title}
             />
@@ -75,8 +99,9 @@ const SearchBarInput = (props: ISearchInputProps) => {
       onClickOutside={handleClickOutSide}
     >
       <HStack
-        width="515px"
-        height="56px"
+        minHeight={`${minHeight}`}
+        width={{ base: '400px', xl: '515px'  }}
+        height="full"
         background="#fff"
         borderRadius="44px"
         border="2px solid #dcdfe4"
@@ -85,6 +110,7 @@ const SearchBarInput = (props: ISearchInputProps) => {
         _focusWithin={{
           borderColor: "#64CCC5",
         }}
+        {...rest}
       >
         <InputGroup padding="0px 16px">
           <InputLeftElement pointerEvents="none" width="40px" height="40px">
@@ -96,7 +122,7 @@ const SearchBarInput = (props: ISearchInputProps) => {
             paddingLeft={10}
             border="none"
             focusBorderColor="transparent"
-            fontSize="xl"
+            fontSize="2xl"
             fontWeight="700"
             onChange={(e) => {
               setInputValue(e.target.value);
@@ -107,12 +133,13 @@ const SearchBarInput = (props: ISearchInputProps) => {
           />
         </InputGroup>
         <Button
-          width="115px"
-          height="42px"
+          width="125px"
+          height="48px"
           backgroundColor="#64CCC5"
           color="#fff"
           fontSize="xl"
           borderRadius="99px"
+          onClick={handleGoToAllActivities}
           transition="background .2s ease-out"
           _hover={{
             background: "#176B87",

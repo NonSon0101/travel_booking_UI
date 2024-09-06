@@ -40,7 +40,6 @@ const LoginPage = () => {
       toast.error('Login failed')
     }
   }
-
   return (
     <Box width="100vw" margin={0}>
       <HStack width="100vw">

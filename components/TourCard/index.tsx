@@ -16,6 +16,7 @@ const TourCard = (props: ITourCard) => {
   return (
     <Link href={`/tour-detail/${tour._id}`} _hover={{ textDecoration: "none" }}>
       <Box
+        position='relative'
         border={border}
         height="500px"
         width="288px"
@@ -53,11 +54,11 @@ const TourCard = (props: ITourCard) => {
           <Text fontSize="md" mb="4px" fontWeight="500">
             2 hours
           </Text>
-          <RatingStart sizeStar={24} sizeText="sm" ratingAverate={tour.ratingAverage} numOfrating={tour.numOfRating}/>
-          <Text bottom="0" fontSize="lg" fontWeight="600">
-            From {formatCurrency(tour?.regularPrice)}
-          </Text>
+          <RatingStart sizeStar={24} sizeText="sm" ratingAverage={tour.ratingAverage} numOfRating={tour.numOfRating}/>
         </VStack>
+        <Text padding="8px 12px 0px" position='absolute' bottom="0" fontSize="lg" fontWeight="600">
+            From {formatCurrency(tour?.regularPrice ?? 0)}
+        </Text>
       </Box>
     </Link>
   )
