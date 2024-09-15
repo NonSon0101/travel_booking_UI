@@ -16,10 +16,8 @@ interface IUserProfileProps {
 const UserProfile = (props: IUserProfileProps) => {
   const { platform } = props
   const { authStore } = useStores()
-  const { user } = authStore
+  const { user, isLogin } = authStore
   const router = useRouter()
-  const accessToken: string = getAccessToken(platform)
-  const isLogin: boolean = !!accessToken
 
   function gotoProfilePage(): void {
     router.push(routes.cms.accountSettings.value)
