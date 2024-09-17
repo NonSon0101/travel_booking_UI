@@ -32,11 +32,13 @@ const HomePage = () => {
       authStore.getUserbyId(PLATFORM.WEBSITE)
       route.push('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, searchParams]);
 
 
   useEffect(() => {
     tourStore.fetchActiveTours();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleGoToAllActivities() {

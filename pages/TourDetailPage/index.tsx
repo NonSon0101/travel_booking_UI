@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import {
-  Avatar,
   Box,
   Button,
   Divider,
@@ -9,12 +8,17 @@ import {
   HStack,
   IconButton,
   Image,
+  ListItem,
   Menu,
   MenuButton,
   MenuList,
+  SimpleGrid,
   Text,
+  UnorderedList,
   useBreakpointValue,
   VStack,
+  GridItem,
+  Stack
 } from "@chakra-ui/react";
 import { toast } from 'react-toastify'
 import Slider from "react-slick";
@@ -45,6 +49,7 @@ import routes from "routes";
 import { BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 import Title from "components/Title";
 import TourReviews from "./TourReviews";
+import Timeline from "./TimeLineItems";
 
 type ValuePiece = Date | null;
 
@@ -95,6 +100,7 @@ const TourDetailPage = () => {
     if(tourId){
       tourStore.fetchTourDetail(tourId);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tourId]);
 
   useEffect(() => {
@@ -245,7 +251,7 @@ const TourDetailPage = () => {
           {tourDetail?.title}
         </Heading>
         <RatingStart sizeStar={24} sizeText="md" ratingAverage={tourDetail?.ratingAverage} numOfRating={tourDetail?.numOfRating}/>
-        <Box position={'relative'} height={'600px'} width={'full'} overflow={'hidden'}>
+        <Box position={'relative'} height={{ base: '300px', lg: '600px'}} width={'full'} overflow={'hidden'}>
           <IconButton
             aria-label="left-arrow"
             colorScheme="messenger"
@@ -277,20 +283,21 @@ const TourDetailPage = () => {
           {tourDetail?.images?.map((url, index) => (
             <Image
               key={index}
-              height={'xl'}
+              height={{base: '300px', lg: '600px'}}
               position="relative"
               backgroundPosition="center"
               backgroundRepeat="no-repeat"
               backgroundSize="cover"
               borderRadius='12px'
               backgroundImage={`url(${url})`}
+              alt="tour img"
             />
           ))}
           </Slider>
         </Box>
 
         
-        <HStack width="full" justify="space-between" paddingTop="32px">
+        <Stack width="full" flexDirection={{base: 'column', lg: 'row'}} justify="space-between" paddingTop="32px" gap={10}>
           <VStack
             alignSelf="flex-start"
             flex={2}
@@ -300,9 +307,15 @@ const TourDetailPage = () => {
             <Text fontSize="lg" paddingRight="30px">
               {tourDetail?.summary}
             </Text>
-            <Box width="full">
-              <Maps coordinates={startLocation?.coordinates} />
-            </Box>
+            <Stack width="full" flexDirection={{base: 'column', lg: 'row'}} overflow="hidden" marginY='24px'>
+              <Box width={{ base: '100%', lg: '60%' }} >
+                <Timeline />
+              </Box>
+              {/* Column for Maps component */}
+              <Box width={{ base: '100%', lg: '70%' }}>
+                <Maps coordinates={startLocation?.coordinates} />
+              </Box>
+            </Stack>
             <Title text='About this activity'/> 
             <HStack align="flex-start" padding="16px">
               <Text fontSize="3xl">
@@ -355,18 +368,20 @@ const TourDetailPage = () => {
               width="full"
               height="fit-content"
               padding="16px"
-              background="#1A2B49"
+              background="rgb(4, 54, 74)"
               borderRadius="15px"
             >
               <Text fontSize="2xl" fontWeight="bold" color="#fff">
                 Select participant and date
               </Text>
-              <HStack
-                align="center"
+              <SimpleGrid
+                width='full'
+                columns={{base: 1, md: 2, lg: 3}}
+                gap={4}
                 justifyContent="space-between"
                 paddingTop="8px"
               >
-                <Box flex={1}>
+                <GridItem>
                   <Menu
                     autoSelect={false}
                     computePositionOnMount
@@ -415,9 +430,8 @@ const TourDetailPage = () => {
                   <Text textAlign="center" color="red">
                     {!isMenuParticipant && "Please choose participants"}
                   </Text>
-                </Box>
-
-                <Box flex={1}>
+                </GridItem>
+                <GridItem>
                   <Menu
                     autoSelect={false}
                     computePositionOnMount
@@ -456,17 +470,21 @@ const TourDetailPage = () => {
                   <Text textAlign="center" color="red">
                     {!isMenuDatePick && "Please select date"}
                   </Text>
-                </Box>
-
-                <Button
-                  colorScheme="teal"
-                  borderRadius="80px"
-                  flex={1}
-                  onClick={handleCheckAvailability}
-                >
-                  Check availability
-                </Button>
-              </HStack>
+                </GridItem>
+                
+                <GridItem colSpan={{ sm: 1, md: 2, lg: 1 }}>
+                  <Button
+                    width='full'
+                    colorScheme="teal"
+                    borderRadius="80px"
+                    flex={1}
+                    onClick={handleCheckAvailability}
+                  >
+                    Check availability
+                  </Button>
+                </GridItem>
+                
+              </SimpleGrid>
             </Box>
             <Box
               width="full"
@@ -561,16 +579,30 @@ const TourDetailPage = () => {
               borderRadius={2}
               spacing={0}
             >
-              <Text>From</Text>
-              <HStack width="full" justify="space-between">
-                <Text fontSize="2xl" fontWeight={700} flex={2}>
-                  {tourDetail?.regularPrice && formatCurrency(tourDetail?.regularPrice)}
-                </Text>
-                <Button colorScheme="teal" borderRadius="80px" paddingX={8} width="60%" flex={1}>
-                 Check availability
-                </Button>
-              </HStack>
-              <Text>per person</Text>
+              <SimpleGrid columns={{base: 1, xl: 2}} alignItems='center' width='full'>
+                <GridItem>
+                  <Text>From</Text>
+                  <Text fontSize="2xl" fontWeight={700} flex={2}>
+                    {tourDetail?.regularPrice && formatCurrency(tourDetail?.regularPrice)}
+                  </Text>
+                  <Text>per person</Text>
+                </GridItem>
+                <GridItem width='full'>
+                  <Button 
+                    colorScheme="teal" 
+                    borderRadius="80px"
+                    display={{base: 'none', lg: 'block' }}
+                    textAlign='center' 
+                    paddingX={8} 
+                    width="full" 
+                    flex={1} 
+                    alignSelf='center' 
+                    marginTop='24px'
+                  >
+                    Check availability
+                  </Button>
+                </GridItem>
+              </SimpleGrid>
               <HStack marginTop="24px !important" spacing={6}>
                 <Icon iconName="card.svg" size={40} />
                 <Text fontSize="sm">
@@ -580,9 +612,8 @@ const TourDetailPage = () => {
               </HStack>
             </VStack>
           </VStack>
-        </HStack>
+        </Stack>
         <Divider borderColor="#888"/>
-        //customer reviews
         <Title text='Customer reviews'/>
         <TourReviews tourId={`${tourDetail?._id}`} ratingAverage={tourDetail?.ratingAverage ?? 0} numOfRating={tourDetail?.numOfRating ?? 0}/>
       </VStack>
