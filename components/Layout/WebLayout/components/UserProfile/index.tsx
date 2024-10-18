@@ -39,7 +39,11 @@ const UserProfile = (props: IUserProfileProps) => {
   const router = useRouter()
 
   useEffect(() => {
-    authStore.getMyUser(PLATFORM.WEBSITE)
+    try {
+      authStore.getMyUser(PLATFORM.WEBSITE)
+    } catch(error) {
+      console.log('error at get user', error)
+    }
   }, [])
 
   function gotoProfilePage(): void {
